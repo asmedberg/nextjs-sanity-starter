@@ -1,6 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 import { PortableText } from "@portabletext/react";
+import { components } from "@/sanity/portable-text/components";
 
 export async function generateStaticParams() {
   const slugs = await client.fetch(
@@ -14,7 +15,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
   return (
     <div className="container">
-      <PortableText value={data.content} />
+      <PortableText value={data.content} components={components} />
     </div>
   );
 }
