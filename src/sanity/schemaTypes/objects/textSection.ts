@@ -1,5 +1,6 @@
 import { defineType, defineField, defineArrayMember } from "sanity";
 import { BlockContentIcon } from "@sanity/icons";
+import TextSectionPreview from "../components/previews/TextSectionPreview";
 
 export default defineType({
   name: "textSection",
@@ -58,5 +59,8 @@ export default defineType({
         content: content
       };
     }
+  },
+  components: {
+    preview: TextSectionPreview
   }
 });
