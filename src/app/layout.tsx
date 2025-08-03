@@ -1,11 +1,13 @@
-import { sanityFetch } from "@/sanity/lib/live";
+// import { sanityFetch } from "@/sanity/lib/live";
+import { client } from "@/sanity/lib/client";
 import { SETTINGS_QUERY } from "@/sanity/lib/queries";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
 export async function generateMetadata() {
-  const { data: settings } = await sanityFetch({ query: SETTINGS_QUERY });
+  // const { data: settings } = await sanityFetch({ query: SETTINGS_QUERY });
+  const settings = await client.fetch(SETTINGS_QUERY);
 
   return {
     title: {
