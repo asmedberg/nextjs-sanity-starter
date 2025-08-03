@@ -6,6 +6,7 @@ export default defineType({
   title: "Settings",
   icon: CogIcon,
   type: "document",
+  fieldsets: [{ name: "navigation", title: "Navigation" }],
   fields: [
     defineField({
       name: "title",
@@ -13,15 +14,23 @@ export default defineType({
       type: "string"
     }),
     defineField({
+      name: "home",
+      title: "Home Page",
+      type: "reference",
+      to: [{ type: "pages" }],
+      fieldset: "navigation"
+    }),
+    defineField({
       name: "navigation",
-      title: "Navigation",
+      title: "Navigation List",
       type: "array",
       of: [
         defineArrayMember({
           type: "reference",
           to: [{ type: "pages" }]
         })
-      ]
+      ],
+      fieldset: "navigation"
     }),
     defineField({
       name: "seo",
