@@ -10,7 +10,7 @@ export const structure: StructureResolver = S =>
         .title("Settings")
         .id("settings")
         .icon(CogIcon)
-        .child(S.document().schemaType("settings").documentId("settings")),
+        .child(S.document().schemaType("settings").documentId("siteSettings")),
       S.divider(),
       ...S.documentTypeListItems().filter(listItem => {
         return !["settings", "media.tag"].includes(listItem.getId() as string);

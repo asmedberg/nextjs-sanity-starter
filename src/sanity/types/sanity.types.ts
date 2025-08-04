@@ -35,19 +35,6 @@ export type TextSection = {
   }>;
 };
 
-export type Pages = {
-  _id: string;
-  _type: "pages";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  content?: Array<{
-    _key: string;
-  } & TextSection>;
-};
-
 export type Settings = {
   _id: string;
   _type: "settings";
@@ -55,6 +42,12 @@ export type Settings = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  home?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "pages";
+  };
   navigation?: Array<{
     _ref: string;
     _type: "reference";
@@ -80,6 +73,19 @@ export type Settings = {
       _type: "image";
     };
   };
+};
+
+export type Pages = {
+  _id: string;
+  _type: "pages";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: Array<{
+    _key: string;
+  } & TextSection>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -200,7 +206,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = TextSection | Pages | Settings | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = TextSection | Settings | Pages | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: SETTINGS_QUERY
@@ -212,6 +218,12 @@ export type SETTINGS_QUERYResult = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  home?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "pages";
+  };
   navigation?: Array<{
     _ref: string;
     _type: "reference";
@@ -227,11 +239,21 @@ export type SETTINGS_QUERYResult = {
     image: string | null;
   } | null;
 } | null;
+// Variable: NAV_QUERY
+// Query: *[_type=="settings"][0]{    "navItems": navigation[]->{      _id,      title,      "url": slug.current    }  }
+export type NAV_QUERYResult = {
+  navItems: Array<{
+    _id: string;
+    title: string | null;
+    url: string | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"settings\"][0]{\n    ...,\n    seo{\n      ...,\n      \"image\": image.asset->url\n    }\n  }\n": SETTINGS_QUERYResult;
+    "\n  *[_type==\"settings\"][0]{\n    \"navItems\": navigation[]->{\n      _id,\n      title,\n      \"url\": slug.current\n    }\n  }\n": NAV_QUERYResult;
   }
 }

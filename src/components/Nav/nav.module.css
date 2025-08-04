@@ -1,0 +1,5 @@
+.main_nav {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

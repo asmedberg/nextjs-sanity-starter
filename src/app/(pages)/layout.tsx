@@ -1,7 +1,8 @@
 // import { sanityFetch } from "@/sanity/lib/live";
 import { client } from "@/sanity/lib/client";
 import { SETTINGS_QUERY } from "@/sanity/lib/queries";
-import "./globals.css";
+import Nav from "@/components/Nav";
+import "../globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
@@ -43,7 +44,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Nav />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }
