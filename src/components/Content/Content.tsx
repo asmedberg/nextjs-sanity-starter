@@ -2,7 +2,7 @@ import TextSection, { type TextSectionProps } from "./TextSection";
 
 type ContentTypes = TextSectionProps;
 
-const ContentSections = (content: ContentTypes) => {
+const ContentSection = (content: ContentTypes) => {
   if (!content) return null;
 
   try {
@@ -24,7 +24,7 @@ const Content = ({ content }: { content: ContentTypes[] }) => {
     <article>
       {content.map(c => (
         <section key={c._key}>
-          <ContentSections {...c} />
+          <ContentSection {...c} />
         </section>
       ))}
     </article>
