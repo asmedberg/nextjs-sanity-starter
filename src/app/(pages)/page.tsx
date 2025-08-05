@@ -1,8 +1,9 @@
-export default function Home() {
-  return (
-    <>
-      <h1>Welcome to the Next.js Sanity Starter</h1>
-      <p>This is a starter template for building a Next.js application with Sanity.io as the headless CMS.</p>
-    </>
-  );
+import { client } from "@/sanity/lib/client";
+import { HOME_QUERY } from "@/sanity/lib/queries";
+import Content from "@/components/Content";
+
+export default async function Home() {
+  const homeData = await client.fetch(HOME_QUERY);
+
+  return <Content content={homeData?.content} />;
 }
