@@ -1,5 +1,6 @@
-// import { sanityFetch } from "@/sanity/lib/live";
-import { client } from "@/sanity/lib/client";
+import { draftMode } from "next/headers";
+import { VisualEditing } from "next-sanity";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { SETTINGS_QUERY } from "@/sanity/lib/queries";
 import Nav from "@/components/Nav";
 import "../globals.css";
@@ -7,8 +8,7 @@ import "../globals.css";
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
 
 export async function generateMetadata() {
-  // const { data: settings } = await sanityFetch({ query: SETTINGS_QUERY });
-  const settings = await client.fetch(SETTINGS_QUERY);
+  const { data: settings } = await sanityFetch({ query: SETTINGS_QUERY });
 
   return {
     title: {
@@ -37,7 +37,7 @@ export async function generateMetadata() {
   };
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{
   children: React.ReactNode;
@@ -47,6 +47,12 @@ export default function RootLayout({
       <body>
         <Nav />
         <main>{children}</main>
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+          </>
+        )}
       </body>
     </html>
   );

@@ -83,7 +83,7 @@ export type Pages = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  content?: Array<{
+  pageContent?: Array<{
     _key: string;
   } & TextSection>;
 };
@@ -248,6 +248,48 @@ export type NAV_QUERYResult = {
     url: string | null;
   }> | null;
 } | null;
+// Variable: HOME_QUERY
+// Query: *[_type == "pages" && slug.current == "home"][0]
+export type HOME_QUERYResult = {
+  _id: string;
+  _type: "pages";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  pageContent?: Array<{
+    _key: string;
+  } & TextSection>;
+} | null;
+// Variable: PAGES_QUERY
+// Query: *[_type == "pages"]
+export type PAGES_QUERYResult = Array<{
+  _id: string;
+  _type: "pages";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  pageContent?: Array<{
+    _key: string;
+  } & TextSection>;
+}>;
+// Variable: PAGE_QUERY
+// Query: *[_type == "pages" && slug.current == $slug][0]
+export type PAGE_QUERYResult = {
+  _id: string;
+  _type: "pages";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  pageContent?: Array<{
+    _key: string;
+  } & TextSection>;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
@@ -255,5 +297,8 @@ declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"settings\"][0]{\n    ...,\n    seo{\n      ...,\n      \"image\": image.asset->url\n    }\n  }\n": SETTINGS_QUERYResult;
     "\n  *[_type==\"settings\"][0]{\n    \"navItems\": navigation[]->{\n      _id,\n      title,\n      \"url\": slug.current\n    }\n  }\n": NAV_QUERYResult;
+    "\n  *[_type == \"pages\" && slug.current == \"home\"][0]\n": HOME_QUERYResult;
+    "\n  *[_type == \"pages\"]\n": PAGES_QUERYResult;
+    "\n  *[_type == \"pages\" && slug.current == $slug][0]\n": PAGE_QUERYResult;
   }
 }

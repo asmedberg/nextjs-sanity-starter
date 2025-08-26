@@ -23,3 +23,11 @@ export const NAV_QUERY = defineQuery(`
 export const HOME_QUERY = defineQuery(`
   *[_type == "pages" && slug.current == "home"][0]
 `);
+
+export const PAGES_QUERY = defineQuery(`
+  *[_type == "pages"]
+`);
+
+export const PAGE_QUERY = defineQuery(`
+  *[_type == "pages" && slug.current == $slug][0]
+`);

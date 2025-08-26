@@ -459,7 +459,7 @@
         },
         "optional": true
       },
-      "content": {
+      "pageContent": {
         "type": "objectAttribute",
         "value": {
           "type": "array",

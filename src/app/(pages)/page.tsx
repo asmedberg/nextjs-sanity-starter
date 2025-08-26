@@ -1,9 +1,9 @@
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { HOME_QUERY } from "@/sanity/lib/queries";
 import Content from "@/components/Content";
 
 export default async function Home() {
-  const homeData = await client.fetch(HOME_QUERY);
+  const { data: homeData } = await sanityFetch({ query: HOME_QUERY });
 
-  return <Content content={homeData?.content} />;
+  return <Content content={homeData?.pageContent ?? []} />;
 }

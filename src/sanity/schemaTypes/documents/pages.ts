@@ -37,8 +37,8 @@ export default defineType({
       ]
     }),
     defineField({
-      name: "content",
-      title: "Content",
+      name: "pageContent",
+      title: "Page Content",
       type: "array",
       of: [defineArrayMember({ type: "textSection" })]
     })
