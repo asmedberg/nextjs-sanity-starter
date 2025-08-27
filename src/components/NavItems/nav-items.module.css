@@ -1,0 +1,14 @@
+.nav_link {
+  position: relative;
+  padding: var(--space-sm);
+  border-radius: 0.25rem;
+  font-size: 0.9375rem;
+  text-decoration: none;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.nav_link:hover {
+  background-color: var(--background-tertiary);
+  color: var(--text-primary);
+}

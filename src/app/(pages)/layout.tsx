@@ -2,7 +2,7 @@ import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { SETTINGS_QUERY } from "@/sanity/lib/queries";
-import Nav from "@/components/Nav";
+import Layout from "@/components/Layout";
 import "../globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL;
@@ -45,8 +45,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Nav />
-        <main>{children}</main>
+        <Layout>{children}</Layout>
         <SanityLive />
         {(await draftMode()).isEnabled && (
           <>
