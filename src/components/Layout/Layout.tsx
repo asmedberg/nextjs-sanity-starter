@@ -1,4 +1,4 @@
-import NavItems from "../NavItems/NavItems";
+import NavItems from "../NavItems";
 import style from "./layout.module.css";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
