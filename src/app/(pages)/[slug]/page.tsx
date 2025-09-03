@@ -3,8 +3,8 @@ import { sanityFetch } from "@/sanity/lib/live";
 import { client } from "@/sanity/lib/client";
 import { PAGES_QUERY, PAGE_QUERY } from "@/sanity/lib/queries";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const { data: page } = await sanityFetch({ query: PAGE_QUERY, params: params });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { data: page } = await sanityFetch({ query: PAGE_QUERY, params: await params });
 
   if (!page) {
     return {
@@ -30,7 +30,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
+export default async function Page({ params }: PageProps<"/[slug]">) {
   const { data: page } = await sanityFetch({ query: PAGE_QUERY, params });
 
   return <Content content={page?.pageContent ?? []} />;

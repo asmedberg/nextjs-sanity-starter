@@ -37,11 +37,7 @@ export async function generateMetadata() {
   };
 }
 
-export default async function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <body>
