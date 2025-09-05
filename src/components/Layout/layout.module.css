@@ -4,7 +4,7 @@
     "header header"
     "nav main"
     "footer footer";
-  grid-template-columns: 16rem 1fr;
+  grid-template-columns: 3rem 1fr;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
   background-color: var(--background-primary);
@@ -25,18 +25,12 @@
 
 .nav {
   grid-area: nav;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  padding: var(--space-lg) var(--space-md);
   border-right: 1px solid var(--border-subtle);
   background-color: var(--background-secondary);
 }
 
 .main {
   grid-area: main;
-  max-width: 80ch;
-  margin: 0 auto;
   padding: var(--space-xl);
   animation: fadeIn 0.5s ease;
 }
@@ -49,6 +43,12 @@
   font-size: 0.875rem;
   text-align: center;
   color: var(--text-muted);
+}
+
+@media (min-width: 38rem) {
+  .layout {
+    grid-template-columns: 16rem 1fr;
+  }
 }
 
 @keyframes fadeIn {
