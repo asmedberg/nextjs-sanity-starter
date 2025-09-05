@@ -21,28 +21,48 @@ const NavItems = ({ items }: { items: NavItem[] }) => {
     setIsOpen(false);
   };
 
-  // Close the nav menu on resize
+  // Close the nav menu on resize or escape key
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 608) {
-        setIsOpen(false);
+        closeNav();
+      }
+    };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isOpen) {
+        closeNav();
       }
     };
 
     window.addEventListener("resize", handleResize);
+    window.addEventListener("keydown", handleEscape);
+
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("keydown", handleEscape);
     };
-  }, []);
+  }, [isOpen]);
 
   return (
     <div className={style.container}>
-      <button onClick={openNav} className={`${style.btn} ${style.btn_open}`}>
-        <Bars3Icon className={style.btn_icon} />
+      <button
+        onClick={openNav}
+        className={`${style.btn} ${style.btn_open}`}
+        aria-label="Open menu"
+        aria-expanded={isOpen}
+        aria-controls="nav-menu"
+        type="button"
+      >
+        <Bars3Icon className={style.btn_icon} aria-hidden="true" />
       </button>
-      <div className={`${style.nav_items} ${isOpen ? style.open : ""}`.trim()}>
-        <button onClick={closeNav} className={`${style.btn} ${style.btn_close}`}>
-          <XMarkIcon className={style.btn_icon} />
+      <div
+        role="navigation"
+        aria-label="Main navigation"
+        className={`${style.nav_items} ${isOpen ? style.open : ""}`.trim()}
+      >
+        <button onClick={closeNav} className={`${style.btn} ${style.btn_close}`} aria-label="Close menu" type="button">
+          <XMarkIcon className={style.btn_icon} aria-hidden="true" />
         </button>
         <Link href="/" title="Home" className={style.nav_link}>
           Home
