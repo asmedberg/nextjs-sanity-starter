@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import style from "./nav-items.module.css";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -12,6 +13,7 @@ interface NavItem {
 
 const NavItems = ({ items }: { items: NavItem[] }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   const openNav = () => {
     setIsOpen(true);
@@ -43,6 +45,11 @@ const NavItems = ({ items }: { items: NavItem[] }) => {
       window.removeEventListener("keydown", handleEscape);
     };
   }, [isOpen]);
+
+  // close nav menu on route change
+  useEffect(() => {
+    closeNav();
+  }, [pathname]);
 
   return (
     <div className={style.container}>
